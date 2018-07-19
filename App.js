@@ -6,11 +6,15 @@ import RNGooglePlaces from 'react-native-google-places'
 export default class App extends Component {
 
   openSearchModal() {
-    RNGooglePlaces.openAutocompleteModal()
-    .then((place) => {
-		console.log(place)
+    RNGooglePlaces.openPlacePickerModal({
+      latitude: 53.544389,
+      longitude: -113.490927,
+      radius: 0.01 // 10 meters
     })
-    .catch(error => console.log(error.message))
+    .then((place) => {
+      console.log(place);
+    })
+    .catch(error => console.log(error.message));
   }
 
   render() {

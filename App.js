@@ -5,6 +5,13 @@ import RNGooglePlaces from 'react-native-google-places'
 
 export default class App extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      place: null,
+    }
+  }
+
   openSearchModal() {
     RNGooglePlaces.openPlacePickerModal({
       latitude: 53.544389,
@@ -12,9 +19,9 @@ export default class App extends Component {
       radius: 0.01 // 10 meters
     })
     .then((place) => {
-      console.log(place);
+      if(place && place.name) this.setState({ place })
     })
-    .catch(error => console.log(error.message));
+    .catch(error => console.log(error.message))
   }
 
   render() {
@@ -39,7 +46,7 @@ export default class App extends Component {
         style={styles.button}
         onPress={() => this.openSearchModal()}
       >
-        <Text>Pick a Place</Text>
+        <Text>{this.state.place ? this.state.place.name : "Pick a Place"}</Text>
       </TouchableOpacity>
       </View>
     </View>
